@@ -1,0 +1,66 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                              Trade Buddy Dashboard MT4|
+//|                                          Developed by Forex Robot Easy Team|
+//|                                      Developer's Site: forexroboteasy.com|
+//+------------------------------------------------------------------+
+
+// Include necessary libraries and indicators
+#include <TradeBuddyDashboardMT4.mqh>
+
+// Define constants
+#define MAX_PANELS 10
+
+// Define global variables
+TradeBuddyPanel panels[MAX_PANELS];
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Initialize the Trade Buddy Dashboard panels
+   for(int i=0; i<MAX_PANELS; i++)
+   {
+       panels[i].CreatePanel();
+       panels[i].SetPosition(i*120, 0);
+   }
+
+   return(INIT_SUCCEEDED);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator iteration function                              |
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+{
+   // Update the Trade Buddy Dashboard panels
+   for(int i=0; i<MAX_PANELS; i++)
+   {
+       panels[i].UpdatePanel();
+   }
+
+   return(rates_total);
+}
+
+//+------------------------------------------------------------------+
+//| Custom indicator deinitialization function                       |
+//+------------------------------------------------------------------+
+void OnDeinit(const int reason)
+{
+   // Destroy the Trade Buddy Dashboard panels
+   for(int i=0; i<MAX_PANELS; i++)
+   {
+       panels[i].DestroyPanel();
+   }
+}
+
